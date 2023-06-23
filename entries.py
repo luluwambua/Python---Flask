@@ -19,7 +19,6 @@ def entries():
             <br>
             <input type="submit" placeholder="submit" />
             </br>
-
         </body>
     </html>
     ''')
