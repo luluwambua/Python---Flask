@@ -14,15 +14,14 @@ connection.close()
 @app.route('/', methods = ('GET', 'POST'))
 def add_notes():
     if request.method == 'POST':
-        day = request.form['day']
-        entry = request.form['entry']
-        cursor = connection.cursor()
-        cursor.execute('INSERT INTO NOTE(day, entry) VALUES(?,?)',(day,entry))
-        connection.commit()
+        with sqlite3.connect("note.db") as users:
+            cursor = connection.cursor()
+            cursor.execute('INSERT INTO NOTE(day, entry) VALUES(tuesday,eat)')
+            connection.commit()
     return render_template_string('''
     <html>
         <body>
-            <form action = "{{ url_for('add_notes') }}" method = "POST">
+            <form method = "POST">
                 <h3>entries</h3>
                 <input type="text" placeholder="day"/>
                 </br>
