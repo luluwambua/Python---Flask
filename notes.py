@@ -1,64 +1,133 @@
 from flask import Flask, render_template_string, request
 import sqlite3
-import os
 import jinja2
-
-currentdirectory = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
 
-connection = sqlite3.connect('note.db')
-connection.execute('CREATE TABLE IF NOT EXISTS NOTE(day TEXT, entry TEXT)')
-connection.close()
 
-@app.route('/', methods = ('GET', 'POST'))
-def add_notes():
-    if request.method == 'POST':
-        with sqlite3.connect("note.db") as users:
-            cursor = connection.cursor()
-            cursor.execute('INSERT INTO NOTE(day, entry) VALUES(tuesday,eat)')
-            connection.commit()
-    return render_template_string('''
-    <html>
-        <body>
-            <form method = "POST">
-                <h3>entries</h3>
-                <input type="text" placeholder="day"/>
-                </br>
-                <br>
-                <input type="text" placeholder="entry"/>
-                </br>
-                <br>
-                <input type="submit" placeholder="submit"/>
-                </br>
-            </form>
-        </body>
-    </html>
+@app.route('/')
+@app.route('/home')
+def index():
+	return render_template_string('''
+    <!DOCTYPE html>
+<html>
+	<head>
+		<title>Flask and SQLite </title>
+	</head>
+	<body>
+		<h1>Build Web App Using Flask and SQLite</h1>
+		<button class="btn" type="button" onclick="window.location.href='{{ url_for('join') }}';">Fill form to get updates</button><br/>
+		<button class="btn" type="button" onclick="window.location.href='{{ url_for('participants') }}';">Check participant list</button>
+	</body>
+</html>
+
     ''')
 
-@app.route('/notes')
-def execute():
-    return render_template_string('''
-    <html>
-        <head><head>
-        <body>
-            <h3>notes</h3>
-            <table>
-            <tr>
-            <th>day</th>
-            <th>time</th>
-            <th>item</th>
-            </tr>
-            <tr>
-            <td>#</td>
-            <td>#</td>
-            <td>#</td>
-            </tr>
-            </table>
-        </body>
-    </html>
+
+connect = sqlite3.connect('database.db')
+connect.execute(
+	'CREATE TABLE IF NOT EXISTS PARTICIPANTS (name TEXT, \
+	email TEXT, city TEXT, country TEXT, phone TEXT)')
+
+
+@app.route('/join', methods=['GET', 'POST'])
+def join():
+	if request.method == 'POST':
+		name = request.form['name']
+		email = request.form['email']
+		city = request.form['city']
+		country = request.form['country']
+		phone = request.form['phone']
+
+		with sqlite3.connect("database.db") as users:
+			cursor = users.cursor()
+			cursor.execute("INSERT INTO PARTICIPANTS \
+			(name,email,city,country,phone) VALUES (?,?,?,?,?)",
+						(name, email, city, country, phone))
+			users.commit()
+		return render_template_string('''
+	<!DOCTYPE html>
+<html>
+	<head>
+		<title>Flask and SQLite </title>
+	</head>
+	<body>
+		<h1>Build Web App Using Flask and SQLite</h1>
+		<button class="btn" type="button" onclick="window.location.href='{{ url_for('join') }}';">Fill form to get updates</button><br/>
+		<button class="btn" type="button" onclick="window.location.href='{{ url_for('participants') }}';">Check participant list</button>
+	</body>
+</html>
+
     ''')
+	else:
+		return render_template_string('''
+		<!DOCTYPE html>
+<html>
+	<head>
+		<title>Flask and SQLite </title>
+	</head>
+	<body>
+		<form method="POST">
+			<label>Enter Name:</label>
+			<input type="name" name="name" placeholder="Enter your name" required><br/>
+			<label>Enter Email:</label>
+			<input type="email" name="email" placeholder="Enter your email" required><br/>
+			<label>Enter City:</label>
+			<input type="name" name="city" placeholder="Enter your City name" required><br/>
+			<label>Enter Country:</label>
+			<input type="name" name="country" placeholder="Enter the Country name" required><br/>
+			<label>Enter phone num:</label>
+			<input type="name" name="phone" placeholder="Your Phone Number" required><br/>
+			<input type = "submit" value = "submit"/><br/>
+		</form>
+	</body>
+</html>
 
-if __name__ == "__main__":
-    app.run(debug=True)
+	''')
 
+
+@app.route('/participants')
+def participants():
+	connect = sqlite3.connect('database.db')
+	cursor = connect.cursor()
+	cursor.execute('SELECT * FROM PARTICIPANTS')
+
+	data = cursor.fetchall()
+	return render_template_string('''
+    <!DOCTYPE html>
+<html>
+	<head>
+		<title>Flask and SQLite </title>
+	</head>
+	<style>
+		table, th, td {
+		border:1px solid black;
+		}
+		</style>
+	<body>
+		<table style="width:100%">
+			<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>City</th>
+			<th>Country</th>
+			<th>Phone Number</th>
+			</tr>
+			{%for participant in data%}
+			<tr>
+				<td>{{participant[0]}}</td>
+				<td>{{participant[1]}}</td>
+				<td>{{participant[2]}}</td>
+				<td>{{participant[3]}}</td>
+				<td>{{participant[4]}}</td>
+				</tr>
+			{%endfor%}
+		</table>		
+	</body>
+</html>
+
+    ''', data=data)
+
+
+if __name__ == '__main__':
+	app.run(debug=False)
