@@ -1,36 +1,31 @@
-from flask import Flask, render_template_string, request
-import sqlite3
+from flask import Flask, request, render_template_string
 import jinja2
-import os
-
-connection = sqlite3.connect('diary.db')
-cursor = connection.cursor()
-cursor.execute('''CREATE TABLE IF NOT EXISTS DIARY(SCHEDULE)''')
+import sqlite3
 
 app = Flask(__name__)
 
+connection = sqlite3.connect('database.db')
+connection.execute('CREATE TABLE IF NOT EXISTS ENTRIES(entry TEXT)')
+
 @app.route('/')
-def homepage():
+def index():
     return render_template_string('''
     <html>
-        <head></head>
-        <body>
-            <form action="/upload" method="post">
-                <label for="SCHEDULE">SCHEDULE:</label>
-                <input type="text" id="SCHEDULE" name="SCHEDULE"><br><br>
-                <input type="submit" value="Submit">
-            </form>
-   
+    <Head></Head>
+    <body>
+        <h3>welcome to the website</h3>
+        <br>
+        <a href="/add">add entry</a>
+        </br>
+        <br>
+        <a href="/view">list records</a>
+        </br>
+        <br>
+        <a href="/delete">delete entry</a>
+        </br>
+    </body>
     </html>
-    ''')
-@app.route('/upload', methods = ['GET','POST'])
-def upload():
-    if request.method == 'POST':
-	    SCHEDULE = request.form['SCHEDULE']
-with sqlite3.connect('diary.db') as connection:
-     cursor = connection.cursor()
-     cursor.execute('INSERT INTO DIARY(SCHEDULE) VALUES (?)',(SCHEDULE))
-     connection.commit()
+''')
 
 if __name__ == "__main__":
     app.run()

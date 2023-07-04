@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template_string
 import sqlite3
 
 app = Flask(__name__)
@@ -9,7 +9,7 @@ connection.close()
 
 @app.route('/')
 def home():
-    return f'database created'
+    return
 
 if __name__ == "__main__":
     app.run()
