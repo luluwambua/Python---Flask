@@ -27,5 +27,26 @@ def index():
     </html>
 ''')
 
+@app.route('/add', methods = ['POST', 'GET'])
+def add():
+    if request.method == "POST":
+        entry = request.form['entry']
+        with sqlite3.connect('database.db') as connection:
+            cursor = connection.cursor()
+            cursor.execute('INSERT INTO ENTRIES(entry) values (?)', (entry))
+            connection.commit()
+    return render_template_string('''
+    <html>
+    <head></head>
+    <body>
+        <h3>entry</h3>
+        <form action="/add" method="post">
+            <input type="text" name="entry">
+            <input type="submit" value="submit">
+        </form>
+    </body>
+</html>
+    ''')
+
 if __name__ == "__main__":
     app.run()
