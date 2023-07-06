@@ -33,7 +33,7 @@ def add():
         entry = request.form['entry']
         with sqlite3.connect('database.db') as connection:
             cursor = connection.cursor()
-            cursor.execute('INSERT INTO ENTRIES(entry) values (?)', (entry))
+            cursor.execute('INSERT INTO ENTRIES VALUES (?)', (entry,))
             connection.commit()
     return render_template_string('''
     <html>
@@ -44,6 +44,28 @@ def add():
             <input type="text" name="entry">
             <input type="submit" value="submit">
         </form>
+    </body>
+</html>
+    ''')
+
+@app.route('/view')
+def view():
+    return render_template_string('''
+    <html>
+    <head></head>
+    <body>
+        <h3>view</h3>
+    </body>
+    </html>
+    ''')
+
+@app.route('/delete')
+def delete():
+    return render_template_string('''
+    <html>
+    <head></head>
+    <body>
+        <h3>delete</h3>
     </body>
 </html>
     ''')
