@@ -50,14 +50,26 @@ def add():
 
 @app.route('/view')
 def view():
+    connection = sqlite3.connect('database.db')
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    cursor.execute('SELECT * FROM ENTRIES')
+    rows = cursor.fetchall()
     return render_template_string('''
     <html>
     <head></head>
     <body>
         <h3>view</h3>
+        <table>
+            <thead>
+                <td>activity</td>
+            </thead>
+            <tr>
+                <td>{{row[0]}}</td>
+            </tr>
+        </table>
     </body>
-    </html>
-    ''')
+</html>''', rows = rows)
 
 @app.route('/delete')
 def delete():
