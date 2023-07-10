@@ -66,7 +66,7 @@ def view():
             </thead>
             <tr>
             {% for entry in rows %}
-                <td>{{entry}}</td>
+                <td>{{ entry [0] }}</td>
             </tr>
             {% endfor %}
         </table>
