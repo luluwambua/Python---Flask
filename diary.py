@@ -65,8 +65,10 @@ def view():
                 <td>activity</td>
             </thead>
             <tr>
-                <td>{{row[0]}}</td>
+            {% for entry in rows %}
+                <td>{{entry}}</td>
             </tr>
+            {% endfor %}
         </table>
     </body>
 </html>''', rows = rows)
