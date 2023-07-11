@@ -80,6 +80,11 @@ def delete():
     <head></head>
     <body>
         <h3>delete</h3>
+        <form action="/delete" method="post">
+            <label>entry</label>
+            <input type="text" name="entry">
+            <input type="submit" value="submit">
+        </form>
     </body>
 </html>
     ''')
