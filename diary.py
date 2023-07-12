@@ -73,9 +73,14 @@ def view():
     </body>
 </html>''', rows = rows)
 
-@app.route('/delete')
+@app.route('/delete', methods = ['POST'])
 def delete():
-    return render_template_string('''
+    if request.method == 'post':
+        entry = request.form['entry']
+        with sqlite3.connect('database.db') as connection:
+            cursor = connection.cursor()
+            cursor.execute('DELETE FROM EMPLOYEES WHERE entry = ?', (entry,))
+        return render_template_string('''
     <html>
     <head></head>
     <body>
@@ -86,7 +91,7 @@ def delete():
             <input type="submit" value="submit">
         </form>
     </body>
-</html>
+    </html>
     ''')
 
 if __name__ == "__main__":
