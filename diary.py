@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template_string
+from flask import Flask, request, render_template_string, render_template
 import jinja2
 import sqlite3
 
@@ -75,24 +75,13 @@ def view():
 
 @app.route('/delete', methods = ['POST'])
 def delete():
-    if request.method == 'post':
-        entry = request.form['entry']
-        with sqlite3.connect('database.db') as connection:
-            cursor = connection.cursor()
-            cursor.execute('DELETE FROM EMPLOYEES WHERE entry = ?', (entry,))
-        return render_template_string('''
-    <html>
-    <head></head>
-    <body>
-        <h3>delete</h3>
-        <form action="/delete" method="post">
-            <label>entry</label>
-            <input type="text" name="entry">
-            <input type="submit" value="submit">
-        </form>
-    </body>
-    </html>
-    ''')
+    entry = request.form['entry']
+    with sqlite3.connect('database.db') as connection:
+        cursor = connection.cursor()
+        cursor.execute('DELETE FROM ENTRIES WHERE ENTRY = (?)',(entry,))
+        connection.commit()
+        connection.close()
+        return render_template('delete.html')
 
 if __name__ == "__main__":
     app.run()
