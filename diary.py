@@ -75,13 +75,26 @@ def view():
 
 @app.route('/delete', methods = ['POST'])
 def delete():
-    entry = request.form['entry']
-    with sqlite3.connect('database.db') as connection:
-        cursor = connection.cursor()
-        cursor.execute('DELETE FROM ENTRIES WHERE ENTRY = (?)',(entry,))
-        connection.commit()
-        connection.close()
-        return render_template('delete.html')
+    if request.method == "POST":
+        entry = request.form['entry']
+        with sqlite3.connect('database.db') as connection:
+            cursor = connection.cursor()
+            cursor.execute('DELETE FROM ENTRIES WHERE ENTRY = (?)',(entry,))
+            connection.commit()
+            connection.close()
+            return render_template_string('''
+            <html>
+            <head></head>
+            <body>
+                <h3>delete</h3>
+                <form action="/delete" methods="POST">
+                    <label>entry</label>
+                    <input type="text" name="entry">
+                    <input type="submit" value="submit">
+                </form>
+            </body>
+            </html>
+            ''')
 
 if __name__ == "__main__":
     app.run()
