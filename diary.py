@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template_string, render_template
+from flask import Flask, request, render_template_string
 import jinja2
 import sqlite3
 
@@ -67,15 +67,17 @@ def view():
             <tr>
             {% for entry in rows %}
                 <td>{{ entry [0] }}</td>
+                <td><form action="/delete?id={{ entry[0] }}" method="GET">
+                <button id="w3-btn">delete</button>
+                </form></td>
             </tr>
             {% endfor %}
         </table>
     </body>
-</html>''', rows = rows)
+    </html>''', rows = rows)
 
 @app.route('/delete', methods = ['POST'])
 def delete():
-    if request.method == "POST":
         entry = request.form['entry']
         with sqlite3.connect('database.db') as connection:
             cursor = connection.cursor()
@@ -87,7 +89,7 @@ def delete():
             <head></head>
             <body>
                 <h3>delete</h3>
-                <form action="/delete" methods="POST">
+                <form action="/view" methods="POST">
                     <label>entry</label>
                     <input type="text" name="entry">
                     <input type="submit" value="submit">
