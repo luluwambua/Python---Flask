@@ -94,8 +94,8 @@ def view():
             <tr>
             {% for entry in rows %}
                 <td>{{ entry [0] }}</td>
-                <td><form action="/delete?id={{ entry[0] }}" method="GET">
-                <button id="w3-btn">delete</button>
+                <td><form action="/delete?id={{ entry[0] }}" method="POST">
+                <input type = "submit" value = "Delete"/>
                 </form></td>
             </tr>
             {% endfor %}
@@ -116,7 +116,7 @@ def delete():
             <head></head>
             <body>
                 <h3>delete</h3>
-                <form action="/view" methods="POST">
+                <form action="/delete" methods="GET">
                     <label>entry</label>
                     <input type="text" name="entry">
                     <input type="submit" value="submit">
