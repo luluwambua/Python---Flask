@@ -9,9 +9,9 @@ def index():
     <Head></Head>
     <body>
         <form method = 'POST' action = '{{ url_for('login')}}'>
-            <input type = 'text' name = 'name' placeholder = 'name'><br>
-            <input type = 'password' name = 'password' placeholder = 'password'><br>
-            <input type = 'submit' value = 'login'>
+            <center><input type = 'text' name = 'name' placeholder = 'name'></center><br>
+            <center><input type = 'password' name = 'password' placeholder = 'password'></center><br>
+            <center><input type = 'submit' value = 'login'></center>
         </form>
     </body>
     </html>''')
@@ -28,7 +28,7 @@ def login():
         return render_template_string('''
         <html>
             <body>
-                <h3>access denied!<h3>
+                <center><h3>access denied!<h3></center>
             </body>
         </html>
         ''')
@@ -36,7 +36,7 @@ def login():
         return render_template_string('''
         <html>
             <body>
-                <h3>lulu</h3>
+                <center><h3>lulu</h3></center>
             </body>
         </html>
         ''')
