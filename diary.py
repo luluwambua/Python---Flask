@@ -16,13 +16,8 @@ def index():
         <h3>welcome to the website</h3>
         <br>
         <a href="/add">add entry</a>
-        </br>
-        <br>
-        <a href="/view">list records</a>
-        </br>
-        <br>
-        <a href="/delete">delete entry</a>
-        </br>
+        
+        
     </body>
     </html>
 ''')
