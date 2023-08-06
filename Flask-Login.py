@@ -19,8 +19,8 @@ def homepage():
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
         <a class="navbar-brand" href="#">
-      <img src="/static/FB_IMG_1689453837079.jpg" alt="Bootstrap" width="30" height="24">
-    <a class="navbar-brand" href="#">Navbar</a>
+      <img src="/static/taxslayer.jpeg" alt="Bootstrap" width="150" height="30">
+    <a class="navbar-brand" href="#">.</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -43,9 +43,13 @@ def homepage():
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
         </li>
       </ul>
+        <li>
+        <form class="d-flex" role="search">
+        <a href="#" class="btn" role="button" data-bs-toggle="button">Toggle link</a>
+      </form>
+        </li>
     </div>
   </div>
 </nav>
