@@ -20,7 +20,7 @@ def homepage():
   <div class="container-fluid">
         <a class="navbar-brand" href="#">
       <img src="/static/taxslayer.jpeg" alt="Bootstrap" width="150" height="30">
-    <a class="navbar-brand" href="#">.</a>
+    <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
