@@ -1,4 +1,4 @@
-from flask import Flask, render_template_string
+from flask import Flask, render_template_string, request
 import sqlite3
 
 app = Flask(__name__)
@@ -50,10 +50,10 @@ def homepage():
       </ul>
         <li>
         <form class="d-flex" role="search">
-        <a href="#" class="btn" role="button" data-bs-toggle="button">Login</a>
+        <a href="/login" class="btn" role="button" data-bs-toggle="button">Login</a>
         <li>
         <form class="d-flex" role="search">
-        <a href="#" class="btn" role="button" data-bs-toggle="button">Register</a>
+        <a href="/register" class="btn" role="button" data-bs-toggle="button">Register</a>
       </form>
         </li>
     </div>
@@ -245,6 +245,34 @@ def homepage():
     </body>
 </html>
     ''')
+
+@app.route('/login')
+def login():
+    return
+
+@app.route('/register', methods = ['POST','GET'])
+def register():
+    if request.method == "POST":
+        name = request.form['name']
+        password = request.form['password']
+        with sqlite3.connect('users.db') as connection:
+            cursor = connection.cursor()
+            cursor.execute('INSERT INTO users VALUES (?,?)', (name, password))
+            connection.commit()
+    return render_template_string('''
+    <html>
+      <body>
+        <form method="post">
+            <label for="day">name:</label>
+            <input type="text" id="name" name="name">
+            <label for="activity">password:</label>
+            <input type="text" id="password" name="password">
+            <input type="submit" value="Submit">
+        </form>
+      </body>
+    </html>
+    ''')
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
