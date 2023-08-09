@@ -33,10 +33,10 @@ def homepage():
           <a class="nav-link" href="/">Features</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/">Pricing</a>
+          <a class="nav-link" href="/">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/register">Blog</a>
+          <a class="nav-link" href="/register">Register</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,11 +48,6 @@ def homepage():
             <li><a class="dropdown-item" href="/">CIT Calculator</a></li>
         </li>
       </ul>
-        <li>
-        <a href="/" class="btn" role="button" data-bs-toggle="button">Login</a>
-        <li>
-        <a href="/" class="btn btn-primary disabled" tabindex="-1" role="button" aria-disabled="False">register</a>
-      </form>
         </li>
     </div>
   </div>
@@ -259,14 +254,20 @@ def register():
             connection.commit()
     return render_template_string('''
     <html>
+      <head>
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">                                              
+      </head>
       <body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <center>
         <form method="post">
-            <label for="day">name:</label>
-            <input type="text" id="name" name="name">
-            <label for="activity">password:</label>
-            <input type="text" id="password" name="password">
+            <input type="text" id="name" name="name" placeholder = "name">
+            <br>
+            <input type="text" id="password" name="password" placeholder = "password">
+            <br>
             <input type="submit" value="Submit">
         </form>
+        </center>
       </body>
     </html>
     ''')
