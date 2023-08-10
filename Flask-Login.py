@@ -21,7 +21,7 @@ def homepage():
         <a class="navbar-brand" href="/">
       <img src="/static/OIP.jpeg" alt="Bootstrap" width="150" height="30">
     <a class="navbar-brand" href="/"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"  data-bs-theme="dark">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -33,7 +33,7 @@ def homepage():
           <a class="nav-link" href="/">Features</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/">Login</a>
+          <a class="nav-link" href="/login">Login</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/register">Register</a>
@@ -241,7 +241,68 @@ def homepage():
 
 @app.route('/login')
 def login():
-    return
+    return render_template_string('''
+    <html>
+      <head>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+      </head>
+    <body>
+    <script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    </script>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+      <img src="/static/OIP.jpeg" alt="Bootstrap" width="150" height="30">
+    <a class="navbar-brand" href="/"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"  data-bs-theme="dark">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/register">Register</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Calculators
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/">VAT Calculator</a></li>
+            <li><a class="dropdown-item" href="/">PAYE calculator</a></li>
+            <li><a class="dropdown-item" href="/">CIT Calculator</a></li>
+        </li>
+      </ul>
+        </li>
+    </div>
+  </div>
+</nav>
+  <br>
+    <center>
+        <form method="post">
+            <br>
+            <input type="text" id="name" name="name" placeholder = "name">
+            </br
+            <br>
+            <input type="text" id="password" name="password" placeholder = "password">
+            </br>
+            <br>
+            <input type="submit" value="Login">
+            </br>
+        </form>
+        </center>
+      </body>
+    </html>
+''')
 
 @app.route('/register', methods = ['POST','GET'])
 def register():
@@ -259,29 +320,28 @@ def register():
       </head>
       <body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+      <img src="/static/OIP.jpeg" alt="Bootstrap" width="150" height="30">
+    <a class="navbar-brand" href="/"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"  data-bs-theme="dark">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Logout</a>
+        </li>
+      </ul>
+        </li>
+    </div>
+  </div>
+</nav>
         <center>
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-  <div class="toast-header">
-    <img src="/static/OIP.jpeg" class="rounded me-2" alt="...">
-    <strong class="me-auto">Bootstrap</strong>
-    <small class="text-body-secondary">11 mins ago</small>
-    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-  </div>
-  <script>
-    const toastTrigger = document.getElementById('Submit')
-const toastLiveExample = document.getElementById('liveToast')
-
-if (toastTrigger) {
-  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-  toastTrigger.addEventListener('click', () => {
-    toastBootstrap.show()
-  })
-}
-  </script>
-  <div class="toast-body">
-    Hello, world! This is a toast message.
-  </div>
-</div>
         <form method="post">
             <input type="text" id="name" name="name" placeholder = "name">
             <br>
@@ -293,6 +353,7 @@ if (toastTrigger) {
       </body>
     </html>
     ''')
+
     
 
 if __name__ == "__main__":
