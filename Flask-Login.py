@@ -1,4 +1,4 @@
-from flask import Flask, render_template_string, request
+from flask import Flask, render_template_string, request, redirect, url_for
 import sqlite3
 
 app = Flask(__name__)
@@ -313,6 +313,7 @@ def register():
             cursor = connection.cursor()
             cursor.execute('INSERT INTO users VALUES (?,?)', (name, password))
             connection.commit()
+            return redirect(url_for('userregistered'))
     return render_template_string('''
     <html>
       <head>
@@ -353,7 +354,14 @@ def register():
       </body>
     </html>
     ''')
-
+@app.route('/userregistered')
+def userregistered():
+    return render_template_string('''
+    <html>
+      <body>
+        <h3>user registered</h3>
+      </body>
+    </html>''')
     
 
 if __name__ == "__main__":
