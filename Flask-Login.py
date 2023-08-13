@@ -377,7 +377,7 @@ def userregistered():
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/">Logout</a>
+          <a class="nav-link" href="/login">Login</a>
         </li>
       </ul>
         </li>
@@ -390,10 +390,10 @@ def userregistered():
 </svg>
   </center>
   <br>
-  <br>
   <center>
   <h3>user registered</h3>
   </center>
+  <a href="/login" class="btn" role="button" data-bs-toggle="button">Go to Login</a>
       </body>
     </html>''')
     
