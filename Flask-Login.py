@@ -393,7 +393,10 @@ def userregistered():
   <center>
   <h3>user registered</h3>
   </center>
-  <a href="/login" class="btn" role="button" data-bs-toggle="button">Go to Login</a>
+  <br>
+  <center>
+  <a href="/login" class="btn" role="button" onclick="window.location.href='/login'" data-bs-toggle="button">Go to Login</a>
+  </center>
       </body>
     </html>''')
     
