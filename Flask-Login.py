@@ -239,8 +239,19 @@ def homepage():
 </html>
     ''')
 
-@app.route('/login')
+@app.route('/login', methods= ['POST','GET'])
 def login():
+    if request.method == 'POST':
+        connecton = sqlite3.connect('users.db')
+        cursor = connecton.cursor()
+        name = request.form['name']
+        password = request.form['password']
+        cursor.execute("SELECT name,password FROM users WHERE name = '"+name+"'and password = '"+password+"'")
+        results = cursor.fetchall()
+        if len(results) == 0:
+            print('error')
+        else:
+            return redirect(url_for('welcome'))
     return render_template_string('''
     <html>
       <head>
@@ -399,7 +410,15 @@ def userregistered():
   </center>
       </body>
     </html>''')
-    
+@app.route('/welcome')
+def welcome():
+    return render_template_string('''
+    <html>
+      <body>
+        <h3>welcome!</h3>
+      </body
+    </html>
+    ''')
 
 if __name__ == "__main__":
     app.run(debug=True)
