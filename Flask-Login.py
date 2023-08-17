@@ -1,4 +1,4 @@
-from flask import Flask, render_template_string, request, redirect, url_for
+from flask import Flask, render_template_string, request, redirect, url_for, session
 import sqlite3
 from flask_session import Session
 
@@ -246,6 +246,7 @@ def homepage():
 @app.route('/login', methods= ['POST','GET'])
 def login():
     if request.method == 'POST':
+        session['name'] = request.form.get('name')
         connecton = sqlite3.connect('users.db')
         cursor = connecton.cursor()
         name = request.form['name']
