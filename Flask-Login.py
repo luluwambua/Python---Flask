@@ -1,7 +1,11 @@
 from flask import Flask, render_template_string, request, redirect, url_for
 import sqlite3
+from flask_session import Session
 
 app = Flask(__name__)
+app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
 
 connecton = sqlite3.connect('users.db')
 cursor = connecton.cursor()
@@ -771,6 +775,10 @@ def meats():
 </footer>
     </body>
   </html>''')
+@app.route('/logout')
+def logout():
+    Session['name'] = None
+    return redirect(url_for('homepage'))
 
 
 if __name__ == "__main__":
