@@ -10,6 +10,7 @@ Session(app)
 connecton = sqlite3.connect('users.db')
 cursor = connecton.cursor()
 cursor.execute('CREATE TABLE IF NOT EXISTS users(name TEXT, password TEXT)')
+cursor.execute('CREATE TABLE IF NOT EXISTS cart(meattype TEXT, quantity INTEGER, contact INTEGER)')
 
 @app.route('/')
 def homepage():
@@ -780,8 +781,20 @@ def meats():
 def logout():
     Session['name'] = None
     return redirect(url_for('homepage'))
-
-
+@app.route('/addtocart',methods = ['POST'])
+def addtocart():
+    if request.method == 'POST':
+        meat = request.form['meat']
+        quantity = request.form['quantity']
+        contact = request.form['contact']
+        cursor.execute('INSERT INTO cart VALUES (?,?,?)', (meat, quantity,contact))
+        connection.commit()
+    return render_template_string ('''
+    <html>
+      <body>
+        <h3>test</h3>
+      </body>
+    </html>''')
 if __name__ == "__main__":
     app.run(debug=True)
 
