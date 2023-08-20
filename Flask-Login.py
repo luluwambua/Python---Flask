@@ -597,7 +597,7 @@ def meats():
       <div class="card-body">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="/addtocart" class="btn btn-primary">buy</a>
       </div>
     </div>
   </div>
@@ -607,7 +607,7 @@ def meats():
       <div class="card-body">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">This is a short card.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="/addtocart" class="btn btn-primary">buy</a>
       </div>
     </div>
   </div>
@@ -617,7 +617,7 @@ def meats():
       <div class="card-body">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="/addtocart" class="btn btn-primary">buy</a>
       </div>
     </div>
   </div>
@@ -630,7 +630,7 @@ def meats():
       <div class="card-body">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="/addtocart" class="btn btn-primary">buy</a>
       </div>
     </div>
   </div>
@@ -640,7 +640,7 @@ def meats():
       <div class="card-body">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">This is a short card.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="/addtocart" class="btn btn-primary">buy</a>
       </div>
     </div>
   </div>
@@ -650,7 +650,7 @@ def meats():
       <div class="card-body">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="/addtocart" class="btn btn-primary">buy</a>
       </div>
     </div>
   </div>
@@ -781,19 +781,77 @@ def meats():
 def logout():
     Session['name'] = None
     return redirect(url_for('homepage'))
-@app.route('/addtocart',methods = ['POST'])
+
+@app.route('/addtocart',methods = ['POST','GET'])
 def addtocart():
     if request.method == 'POST':
-        meat = request.form['meat']
-        quantity = request.form['quantity']
-        contact = request.form['contact']
-        cursor.execute('INSERT INTO cart VALUES (?,?,?)', (meat, quantity,contact))
-        connection.commit()
+          meat = request.form['meat']
+          quantity = request.form['quantity']
+          contact = request.form['contact']
+          with sqlite3.connect('users.db') as connection:
+            cursor = connection.cursor()
+            cursor.execute('INSERT INTO cart VALUES (?,?,?)', (meat, quantity,contact))
+            connection.commit()
     return render_template_string ('''
     <html>
+      <head>
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">                           
+      
+      </head>
       <body>
-        <h3>test</h3>
-      </body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+      <img src="/static/OIP.jpeg" alt="Bootstrap" width="150" height="30">
+    <a class="navbar-brand" href="/"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"  data-bs-theme="dark">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            foods
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/cereals">cereals</a></li>
+            <li><a class="dropdown-item" href="/tubers">tubers</a></li>
+            <li><a class="dropdown-item" href="/fruits">fruits</a></li>
+            <li><a class="dropdown-item" href="/fibers">fibers</a></li>
+            <li><a class="dropdown-item" href="/dairy">Dairy</a></li>
+            <li><a class="dropdown-item" href="/mealkits">meal kits</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Logout</a>
+        </li>
+      </ul>
+        </li>
+    </div>
+  </div>
+</nav>
+  <br>
+   <center>
+        <form method="post">
+            <br>
+            <input type="text" id="meat" name="meat" placeholder = "meat">
+            </br>
+            <br>
+            <input type="text" id="quantity" name="quantity" placeholder = "quantity">
+            </br>
+            <br>
+            <input type="text" id="contact" name="contact" placeholder = "contact">
+            </br>
+            <br>
+            <input type="submit" value="buy">
+            </br>
+        </form>
+        </center>
+        </body>
     </html>''')
 if __name__ == "__main__":
     app.run(debug=True)
