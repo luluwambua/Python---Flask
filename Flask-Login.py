@@ -10,7 +10,7 @@ Session(app)
 connecton = sqlite3.connect('users.db')
 cursor = connecton.cursor()
 cursor.execute('CREATE TABLE IF NOT EXISTS users(name TEXT, password TEXT)')
-cursor.execute('CREATE TABLE IF NOT EXISTS cart(meattype TEXT, quantity INTEGER, contact INTEGER)')
+cursor.execute('CREATE TABLE IF NOT EXISTS cart(meattype TEXT, quantity INTEGER, contact INTEGER, price INTEGER)')
 
 @app.route('/')
 def homepage():
@@ -788,9 +788,10 @@ def addtocart():
           meat = request.form['meat']
           quantity = request.form['quantity']
           contact = request.form['contact']
+          price = request.form['price']
           with sqlite3.connect('users.db') as connection:
             cursor = connection.cursor()
-            cursor.execute('INSERT INTO cart VALUES (?,?,?)', (meat, quantity,contact))
+            cursor.execute('INSERT INTO cart VALUES (?,?,?,?)', (meat, quantity,contact,price))
             connection.commit()
     return render_template_string ('''
     <html>
@@ -837,6 +838,7 @@ def addtocart():
   <br>
    <center>
         <form method="post">
+            <input type="hidden" id="price" name="price" value="100"/>
             <br>
             <input type="text" id="meat" name="meat" placeholder = "meat">
             </br>
