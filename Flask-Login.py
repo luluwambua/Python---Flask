@@ -1,6 +1,7 @@
 from flask import Flask, render_template_string, request, redirect, url_for, session
 import sqlite3
 from flask_session import Session
+import jinja2
 
 app = Flask(__name__)
 app.config['SESSION_PERMANENT'] = False
@@ -793,6 +794,7 @@ def addtocart():
             cursor = connection.cursor()
             cursor.execute('INSERT INTO cart VALUES (?,?,?,?)', (meat, quantity,contact,price))
             connection.commit()
+            return redirect(url_for('mycart'))
     return render_template_string ('''
     <html>
       <head>
@@ -855,6 +857,66 @@ def addtocart():
         </center>
         </body>
     </html>''')
+@app.route('/mycart')
+def mycart():
+    connecton = sqlite3.connect('users.db')
+    cursor = connecton.cursor()
+    cursor.execute('SELECT * FROM cart')
+    carts = cursor.fetchall()
+    connecton.close()
+    return render_template_string('''
+    <html>
+      <head>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">                                               
+      </head>
+      <body>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+      <img src="/static/OIP.jpeg" alt="Bootstrap" width="150" height="30">
+    <a class="navbar-brand" href="/"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"  data-bs-theme="dark">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            foods
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/cereals">cereals</a></li>
+            <li><a class="dropdown-item" href="/tubers">tubers</a></li>
+            <li><a class="dropdown-item" href="/fruits">fruits</a></li>
+            <li><a class="dropdown-item" href="/fibers">fibers</a></li>
+            <li><a class="dropdown-item" href="/dairy">Dairy</a></li>
+            <li><a class="dropdown-item" href="/mealkits">meal kits</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Logout</a>
+        </li>
+      </ul>
+        </li>
+    </div>
+  </div>
+</nav>
+  <br>
+  <center><h3>my cart</h3></center>
+  </br>
+    <table>
+      {%for cart in carts%}
+      <tr>
+        <td>cart[0]</td>
+      </tr>
+      {%endfor%}
+    </table>                                     
+      </body>
+    </html>''',carts = carts)
 if __name__ == "__main__":
     app.run(debug=True)
 
