@@ -866,6 +866,8 @@ def mycart():
     cursor = connecton.cursor()
     cursor.execute('SELECT * FROM cart')
     carts = cursor.fetchall()
+    cursor.execute('SELECT SUM (price) FROM cart')
+    result = cursor.fetchone()[0]
     connecton.close()
     return render_template_string('''
     <html>
@@ -914,7 +916,7 @@ def mycart():
   <br>
   <center><h3>my cart</h3></center>
   </br>
-    <table>
+    <center><table>
       {%for cart in carts%}
       <tr>
         <td>{{cart[0]}}</td>
@@ -922,9 +924,10 @@ def mycart():
         <td>{{cart[3]}}</td>
       </tr>
       {%endfor%}
-    </table>                                     
+    </table></center>
+        <center><h1>total: {{ sum_result }}</h1></center>                                 
       </body>
-    </html>''',carts = carts)
+    </html>''',carts = carts, sum_result=result)
 if __name__ == "__main__":
     app.run(debug=True)
 
