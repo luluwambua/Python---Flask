@@ -830,6 +830,9 @@ def addtocart():
           </ul>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/mycart">Mycart</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/">Logout</a>
         </li>
       </ul>
@@ -899,6 +902,9 @@ def mycart():
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/mycart">Mycart</a>
         </li>
       </ul>
         </li>
