@@ -911,7 +911,9 @@ def mycart():
     <table>
       {%for cart in carts%}
       <tr>
-        <td>{{cart[0],cart[1],cart[2],cart[3]}}</td>
+        <td>{{cart[0]}}</td>
+        <td>{{cart[1]}}</td>
+        <td>{{cart[3]}}</td>
       </tr>
       {%endfor%}
     </table>                                     
