@@ -925,9 +925,18 @@ def mycart():
       </tr>
       {%endfor%}
     </table></center>
-        <center><h1>total: {{ sum_result }}</h1></center>                                 
+        <center><h1>total: {{ sum_result }}</h1></center> 
+        <center><a href="/checkout" button type="button" class="btn">Checkout</button></center>                                
       </body>
     </html>''',carts = carts, sum_result=result)
+@app.route('/checkout')
+def checkout():
+    return render_template_string('''
+    <html>
+      <body>
+        <center><h3>checkout page</h3></center>
+      </body>
+    </html>''')
 if __name__ == "__main__":
     app.run(debug=True)
 
