@@ -916,8 +916,9 @@ def mycart():
   <br>
   <center><h3>my cart</h3></center>
   </br>
-    <center><table>
+    <center><table class="table table-dark table-hover">
       {%for cart in carts%}
+      <table class="table table-dark table-hover">
       <tr>
         <td>{{cart[0]}}</td>
         <td>{{cart[1]}}</td>
@@ -1055,8 +1056,7 @@ def checkout():
     <html>
     <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">                                               
-    </head>
-                                  
+    </head>                            
       <body>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
              <nav class="navbar navbar-expand-lg bg-body-tertiary">
