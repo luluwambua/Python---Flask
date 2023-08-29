@@ -4,6 +4,7 @@ from flask_session import Session
 import jinja2
 
 app = Flask(__name__)
+app.secret_key = "LULU"
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
@@ -248,10 +249,10 @@ def homepage():
 @app.route('/login', methods= ['POST','GET'])
 def login():
     if request.method == 'POST':
-        session['name'] = request.form.get('name')
         connecton = sqlite3.connect('users.db')
         cursor = connecton.cursor()
-        name = request.form['name']
+        name =  request.form.get('name')
+        session['name'] = name
         password = request.form['password']
         cursor.execute("SELECT name,password FROM users WHERE name = '"+name+"'and password = '"+password+"'")
         results = cursor.fetchall()
@@ -419,7 +420,9 @@ def userregistered():
     </html>''')
 @app.route('/welcome')
 def welcome():
-    return render_template_string('''
+    if "name" in session:
+        name = session['name']
+        return render_template_string('''
     <html>
       <head>
               <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -780,6 +783,7 @@ def meats():
   </html>''')
 @app.route('/logout')
 def logout():
+    session.pop('user', None)
     Session['name'] = None
     return redirect(url_for('homepage'))
 
