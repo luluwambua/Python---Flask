@@ -916,9 +916,8 @@ def mycart():
   <br>
   <center><h3>my cart</h3></center>
   </br>
-    <center><table class="table table-dark table-hover">
+    <center><table class="table table-hover">
       {%for cart in carts%}
-      <table class="table table-dark table-hover">
       <tr>
         <td>{{cart[0]}}</td>
         <td>{{cart[1]}}</td>
