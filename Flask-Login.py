@@ -1103,12 +1103,23 @@ def checkout():
         <center><h3>checkout page</h3></center>
       </body>
     </html>''')
-@app.route('/delete')
+@app.route('/delete', methods = ['POST','GET'])
 def delete():
+  if request.method == 'GET':
+    meattype = request.form['meattype']
+    with sqlite3.connect('users.db') as connection:
+          cursor = connection.cursor()
+          cursor.execute('DELETE FROM mycart WHERE meattype=?', (meattype,))
+          connection.commit() 
     return render_template_string('''
 <html>
   <body>
-    <h3>deleted</h3>
+    <br>
+    <input type="text" id="meattype" name="meattype" placeholder = "meattype">
+    </br>
+    <br>
+    <input type="submit" value="delete">
+    </br>
   </body>
 </html>''')
 if __name__ == "__main__":
