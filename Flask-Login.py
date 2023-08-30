@@ -926,6 +926,7 @@ def mycart():
         <td>{{cart[0]}}</td>
         <td>{{cart[1]}}</td>
         <td>{{cart[3]}}</td>
+        <td><a href="/delete" button type="button" class="btn">delete</button></td>
       </tr>
       {%endfor%}
     </table></center>
@@ -1102,6 +1103,14 @@ def checkout():
         <center><h3>checkout page</h3></center>
       </body>
     </html>''')
+@app.route('/delete')
+def delete():
+    return render_template_string('''
+<html>
+  <body>
+    <h3>deleted</h3>
+  </body>
+</html>''')
 if __name__ == "__main__":
     app.run(debug=True)
 
