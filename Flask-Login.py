@@ -1103,15 +1103,15 @@ def checkout():
         <center><h3>checkout page</h3></center>
       </body>
     </html>''')
-@app.route('/delete/mutton', methods = ['POST','GET'])
-def delete():
+@app.route('/delete/<meattype>', methods = ['POST','GET'])
+def delete(meattype):
   if request.method == "POST":
-      meattype = request.form['meattype']
+      meat = request.form['meattype']
       quantity = request.form['quantity']
       price = request.form['price']
       with sqlite3.connect('users.db') as connection:
         cursor = connection.cursor()
-        cursor.execute('UPDATE cart SET meattype, quantity, price = ?,?,?'
+        cursor.execute('UPDATE cart SET meattype, quantity, price = (?,?,?)'
                         'WHERE meattype = ?',
                          (meattype, quantity, price))
         connection.commit() 
