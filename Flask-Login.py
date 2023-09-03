@@ -12,7 +12,7 @@ Session(app)
 connecton = sqlite3.connect('users.db')
 cursor = connecton.cursor()
 cursor.execute('CREATE TABLE IF NOT EXISTS users(name TEXT, password TEXT)')
-cursor.execute('CREATE TABLE IF NOT EXISTS cart(meattype TEXT, quantity INTEGER, contact INTEGER, price INTEGER)')
+cursor.execute('CREATE TABLE IF NOT EXISTS cart(id INTEGER PRIMARY KEY AUTOINCREMENT, meattype TEXT, quantity INTEGER, contact INTEGER, price INTEGER)')
 
 @app.route('/')
 def homepage():
