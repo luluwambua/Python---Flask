@@ -926,7 +926,7 @@ def mycart():
         <td>{{cart[0]}}</td>
         <td>{{cart[1]}}</td>
         <td>{{cart[3]}}</td>
-        <td><a href="/delete" button type="button" class="btn">delete</button></td>
+        <td><a href="/delete/{{cart[0]}}" button type="button" class="btn">delete</button></td>
       </tr>
       {%endfor%}
     </table></center>
@@ -1103,23 +1103,25 @@ def checkout():
         <center><h3>checkout page</h3></center>
       </body>
     </html>''')
-@app.route('/delete', methods = ['POST','GET'])
+@app.route('/delete/mutton', methods = ['POST','GET'])
 def delete():
-  if request.method == 'GET':
-    meattype = request.form['meattype']
-    with sqlite3.connect('users.db') as connection:
-          cursor = connection.cursor()
-          cursor.execute('DELETE FROM mycart WHERE meattype=?', (meattype,))
-          connection.commit() 
-    return render_template_string('''
+  if request.method == "POST":
+      meattype = request.form['meattype']
+      connection = sqlite3.connect('users.db')
+      cursor = connection.cursor()
+      cursor.execute('DELETE FROM cart WHERE meattype=(?)', (meattype,))
+      connection.commit() 
+  return render_template_string('''
 <html>
   <body>
+  <form>
     <br>
-    <input type="text" id="meattype" name="meattype" placeholder = "meattype">
+    <input type="text" id="meat" name="meatype" placeholder = "meattype">
     </br>
     <br>
     <input type="submit" value="delete">
     </br>
+  </form>
   </body>
 </html>''')
 if __name__ == "__main__":
