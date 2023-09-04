@@ -67,21 +67,21 @@ def homepage():
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="/static/FB_IMG_1689453913724.jpg" class="d-block w-100" alt="...">
+      <img src="/static/338187307_1892431414456413_660616501174575502_n.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
         <h5>Latest Updates</h5>
-        <p>2023 software is here.</p>
+        <p>2023 pricing is here.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="/static/FB_IMG_1689453927631.jpg" class="d-block w-100" alt="...">
+      <img src="/static/338393964_759562672290804_5888046337273752365_n.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
         <h5>Amazing Prices</h5>
         <p>Maximum value for money.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="/static/FB_IMG_1689453955918.jpg" class="d-block w-100" alt="...">
+      <img src="/static/339141709_3589498107946586_5574598469084566052_n.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
         <h5>projections and insights</h5>
         <p>our AI models can help you manage risk.</p>
