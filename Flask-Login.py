@@ -1107,13 +1107,9 @@ def checkout():
 def delete(meattype):
   if request.method == "POST":
       meat = request.form['meattype']
-      quantity = request.form['quantity']
-      price = request.form['price']
       with sqlite3.connect('users.db') as connection:
         cursor = connection.cursor()
-        cursor.execute('UPDATE cart SET meattype, quantity, price = (?,?,?)'
-                        'WHERE meattype = ?',
-                         (meattype, quantity, price))
+        cursor.execute('delete from cart where meattype=' + meattype)
         connection.commit() 
   return render_template_string('''
 <html>
@@ -1121,12 +1117,6 @@ def delete(meattype):
   <form>
     <br>
     <input type="text" id="meat" name="meatype" placeholder = "meattype">
-    </br>
-    <br>
-    <input type="text" id="quantity" name="quantity" placeholder = "quantity">
-    </br>
-    <br>
-    <input type="text" id="price" name="price" placeholder = "price">
     </br>
     <br>
     <input type="submit" value="delete">
