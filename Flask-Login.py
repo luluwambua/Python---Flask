@@ -95,32 +95,8 @@ def delete(meattype):
         cursor = connection.cursor()
         cursor.execute('delete from cart where meattype=(?)',(meattype,))
         connection.commit() 
-      return render_template_string('''
-      <html>
-  <body>
-  <form>
-    <br>
-    <input type="text" id="meattype" name="meatype" placeholder = "meattype">
-    </br>
-    <br>
-    <input type="submit" value="delete">
-    </br>
-  </form>
-  </body>
-</html>''')
-  return render_template_string('''
-<html>
-  <body>
-  <form>
-    <br>
-    <input type="text" id="meattype" name="meatype" placeholder = "meattype">
-    </br>
-    <br>
-    <input type="submit" value="delete">
-    </br>
-  </form>
-  </body>
-</html>''')
+      return render_template('delete.html')
+  return render_template_string('delete.html')
 if __name__ == "__main__":
     app.run(debug=True)
 

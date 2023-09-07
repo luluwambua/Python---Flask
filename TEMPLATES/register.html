@@ -26,13 +26,29 @@
   </div>
 </nav>
         <center>
+        <div class="container d-flex justify-content-center">
         <form method="post">
-            <input type="text" id="name" name="name" placeholder = "name">
+          <br>
+          <div class="input-group input-group-sm mb-3">
+            <div class = "col-xs-4">
+            <input type="text" name="name" id="name" placeholder="name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          </div>
+          </div>
+          <br>
+          <div class="input-group input-group-sm mb-3">
+            <div class = "col-xs-4">
+            <input type="password" name="password" id="password" placeholder="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          </div>
+          </div> 
             <br>
-            <input type="text" id="password" name="password" placeholder = "password">
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <div class = "col-xs-4">
+            <button class="btn btn-primary" input type = "submit" value="Register" type="button">Register</button>
+            </div>
+              </div>
             <br>
-            <input type="submit" value="Submit">
         </form>
+        </div>
         </center>
       </body>
     </html>
